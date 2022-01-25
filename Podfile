@@ -6,5 +6,8 @@ target 'Missatge' do
   use_frameworks!
 
   # Pods for Missatge
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'   
 
 end

@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B5EED17B91614A550F0A0C7 /* Pods_Missatge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A5F5D70EFCA44A92627D546 /* Pods_Missatge.framework */; };
 		DA1C6273279F6A4A00E9C7D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1C6272279F6A4A00E9C7D7 /* Extensions.swift */; };
+		DA2CBEA627A07C0300CA6C0D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA2CBEA527A07C0300CA6C0D /* GoogleService-Info.plist */; };
+		DA2CBEA827A0884100CA6C0D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2CBEA727A0884100CA6C0D /* DatabaseManager.swift */; };
 		DAD9A45F279F61BA001A59F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9A45E279F61BA001A59F3 /* AppDelegate.swift */; };
 		DAD9A461279F61BA001A59F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9A460279F61BA001A59F3 /* SceneDelegate.swift */; };
 		DAD9A463279F61BA001A59F3 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9A462279F61BA001A59F3 /* ConversationsViewController.swift */; };
@@ -23,7 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A5F5D70EFCA44A92627D546 /* Pods_Missatge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Missatge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7178AF8EF5005B5B7B41A668 /* Pods-Missatge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Missatge.release.xcconfig"; path = "Target Support Files/Pods-Missatge/Pods-Missatge.release.xcconfig"; sourceTree = "<group>"; };
+		A25A267C954C2DE5FEA1D54B /* Pods-Missatge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Missatge.debug.xcconfig"; path = "Target Support Files/Pods-Missatge/Pods-Missatge.debug.xcconfig"; sourceTree = "<group>"; };
 		DA1C6272279F6A4A00E9C7D7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DA2CBEA527A07C0300CA6C0D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DA2CBEA727A0884100CA6C0D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		DAD9A45B279F61BA001A59F3 /* Missatge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Missatge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD9A45E279F61BA001A59F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAD9A460279F61BA001A59F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,17 +53,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5EED17B91614A550F0A0C7 /* Pods_Missatge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5735001D5F7188ACAD6EC9AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A25A267C954C2DE5FEA1D54B /* Pods-Missatge.debug.xcconfig */,
+				7178AF8EF5005B5B7B41A668 /* Pods-Missatge.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9C8ECDD590E7D12216B7E919 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A5F5D70EFCA44A92627D546 /* Pods_Missatge.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DAD9A452279F61BA001A59F3 = {
 			isa = PBXGroup;
 			children = (
 				DAD9A45D279F61BA001A59F3 /* Missatge */,
 				DAD9A45C279F61BA001A59F3 /* Products */,
+				5735001D5F7188ACAD6EC9AA /* Pods */,
+				9C8ECDD590E7D12216B7E919 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +98,7 @@
 		DAD9A45D279F61BA001A59F3 /* Missatge */ = {
 			isa = PBXGroup;
 			children = (
+				DA2CBEA527A07C0300CA6C0D /* GoogleService-Info.plist */,
 				DAD9A476279F62A6001A59F3 /* Resources */,
 				DAD9A475279F629C001A59F3 /* ViewModels */,
 				DAD9A474279F6295001A59F3 /* Models */,
@@ -122,6 +151,7 @@
 				DAD9A45E279F61BA001A59F3 /* AppDelegate.swift */,
 				DAD9A460279F61BA001A59F3 /* SceneDelegate.swift */,
 				DA1C6272279F6A4A00E9C7D7 /* Extensions.swift */,
+				DA2CBEA727A0884100CA6C0D /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -151,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAD9A46F279F61BA001A59F3 /* Build configuration list for PBXNativeTarget "Missatge" */;
 			buildPhases = (
+				63566DC7D73554EBA459D683 /* [CP] Check Pods Manifest.lock */,
 				DAD9A457279F61BA001A59F3 /* Sources */,
 				DAD9A458279F61BA001A59F3 /* Frameworks */,
 				DAD9A459279F61BA001A59F3 /* Resources */,
+				5AA09E83ADC923E12BB66C10 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD9A46B279F61BA001A59F3 /* LaunchScreen.storyboard in Resources */,
+				DA2CBEA627A07C0300CA6C0D /* GoogleService-Info.plist in Resources */,
 				DAD9A468279F61BA001A59F3 /* Assets.xcassets in Resources */,
 				DAD9A466279F61BA001A59F3 /* Main.storyboard in Resources */,
 			);
@@ -209,12 +242,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5AA09E83ADC923E12BB66C10 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Missatge/Pods-Missatge-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Missatge/Pods-Missatge-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Missatge/Pods-Missatge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63566DC7D73554EBA459D683 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Missatge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DAD9A457279F61BA001A59F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DAD9A479279F63B5001A59F3 /* LoginViewController.swift in Sources */,
+				DA2CBEA827A0884100CA6C0D /* DatabaseManager.swift in Sources */,
 				DAD9A47B279F63C1001A59F3 /* RegisterViewController.swift in Sources */,
 				DAD9A481279F640F001A59F3 /* NewConversationViewController.swift in Sources */,
 				DAD9A463279F61BA001A59F3 /* ConversationsViewController.swift in Sources */,
@@ -367,6 +443,7 @@
 		};
 		DAD9A470279F61BA001A59F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A25A267C954C2DE5FEA1D54B /* Pods-Missatge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -386,6 +463,7 @@
 		};
 		DAD9A471279F61BA001A59F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7178AF8EF5005B5B7B41A668 /* Pods-Missatge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

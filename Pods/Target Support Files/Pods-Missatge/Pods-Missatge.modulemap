@@ -1,0 +1,6 @@
+framework module Pods_Missatge {
+  umbrella header "Pods-Missatge-umbrella.h"
+
+  export *
+  module * { export * }
+}

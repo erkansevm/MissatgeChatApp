@@ -6,15 +6,16 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
-
+    
     private let scrollView: UIScrollView =  {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
     }()
-        
+    
     private let emailField: UITextField =  {
         let textField = UITextField()
         textField.autocorrectionType = .no
@@ -90,7 +91,7 @@ class RegisterViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -104,7 +105,7 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = .white
         title = "Log In"
         
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action:  #selector(didTapRegister))
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action:  #selector(didTapRegister))
         
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
@@ -137,12 +138,12 @@ class RegisterViewController: UIViewController {
         let size = scrollView.width / 4
         imageView.frame = CGRect(x: (scrollView.width  - size) / 2, y: 30, width: size, height: size)
         imageView.layer.cornerRadius = imageView.width/2.0
-        emailField.frame = CGRect(x: 30, y: imageView.bottom + 20, width: scrollView.width - 60, height: 52)
-        firstNameField.frame = CGRect(x: 30, y: emailField.bottom + 20, width: scrollView.width - 60, height: 52)
+        firstNameField.frame = CGRect(x: 30, y: imageView.bottom + 20, width: scrollView.width - 60, height: 52)
         lastNameField.frame = CGRect(x: 30, y: firstNameField.bottom + 20, width: scrollView.width - 60, height: 52)
-        passwordField.frame = CGRect(x: 30, y: lastNameField.bottom + 20, width: scrollView.width - 60, height: 52)
+        emailField.frame = CGRect(x: 30, y: lastNameField.bottom + 20, width: scrollView.width - 60, height: 52)
+        passwordField.frame = CGRect(x: 30, y: emailField.bottom + 20, width: scrollView.width - 60, height: 52)
         registerButton.frame = CGRect(x: 30, y: passwordField.bottom + 20, width: scrollView.width - 60, height: 52)
-
+        
         
     }
     
@@ -171,21 +172,42 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        // Firebase Register
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exist in
+            guard let strongSelf = self else { return }
         
-        
+            guard !exist else   {
+                // user already exists
+                strongSelf.alertUserRegisterError(message: "Look like a user account for that email address already exist")
+                return
+            }
+            
+            // Firebase Register
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                guard authResult != nil , error == nil else  {
+                    print("Error creating user")
+                    return
+                }
+                
+                DatabaseManager.shared.insertUser(with: User(firstName: firstName,
+                                                             lastName: lastName,
+                                                             emailAddress: email))
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+                
+            }
+        })
+             
     }
     
-    func alertUserRegisterError() {
+    func alertUserRegisterError(message: String = "Please enter all information to create a new account") {
         let alert  = UIAlertController(title: "Woops",
-                                       message: "Please enter all information to create a new account",
+                                       message: message,
                                        preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss",
                                       style: .cancel, handler: nil))
         present(alert, animated: true)
     }
     
-   
+    
     
 }
 
