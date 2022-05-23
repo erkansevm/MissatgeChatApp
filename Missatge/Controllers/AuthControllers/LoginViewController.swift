@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         textField.placeholder = "Email Address"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         return textField
     } ()
     
@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
         textField.placeholder = "Password"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         textField.isSecureTextEntry = true
         return textField
     } ()
@@ -77,9 +77,21 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: Notification.Name.didLogInNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        
+        view.backgroundColor = .systemBackground
+        
         title = "Log In"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action:  #selector(didTapRegister))
@@ -97,6 +109,14 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(loginButton)
         scrollView.addSubview(fbLoginButton)
         
+        fbLoginButton.isHidden = true
+        
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -139,6 +159,23 @@ class LoginViewController: UIViewController {
             
             let user = result.user
             
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail) { result in
+                switch result {
+                
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"] as? String,
+                          let lastName = userData["last_name"] as? String else {
+                        return
+                    }
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                   
+                case .failure(let error):
+                    print("Failed to read data with error: \(error)")
+                }
+                
+            }
             UserDefaults.standard.set(email, forKey: "email")
             print(user)
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)

@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Email Address"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         return textField
     } ()
     
@@ -44,7 +44,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "First Name"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         return textField
     } ()
     
@@ -59,7 +59,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Last Name"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         return textField
     } ()
     
@@ -75,7 +75,7 @@ class RegisterViewController: UIViewController {
         textField.placeholder = "Password"
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftViewMode = .always
-        textField.backgroundColor = .white
+        textField.backgroundColor = .secondarySystemBackground
         textField.isSecureTextEntry = true
         return textField
     } ()
@@ -104,7 +104,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = "Log In"
         
         //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action:  #selector(didTapRegister))
@@ -196,6 +196,9 @@ class RegisterViewController: UIViewController {
                     return
                 }
                 
+                UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+                
                 let chatUser =  User(firstName: firstName,
                                      lastName: lastName,
                                      emailAddress: email)
@@ -207,6 +210,7 @@ class RegisterViewController: UIViewController {
                             return
                         }
                         let fileName = chatUser.profilePictureFileName
+                        print("File name \(fileName)")
                         StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
                             switch result {
                             case .success(let downloadUrl):
@@ -219,7 +223,6 @@ class RegisterViewController: UIViewController {
                         }
                     }
                 }
-                UserDefaults.standard.setValue(email, forKey: "email")
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
                 
             }
